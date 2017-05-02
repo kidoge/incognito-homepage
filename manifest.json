@@ -19,6 +19,7 @@
     "scripts": ["listener.js"],
     "persistent": false
   },
+  "incognito": "split",
   "permissions": [
     "tabs"
   ]
