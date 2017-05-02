@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "Incognito Homepage",
+  "version": "0.1",
+
+  "description": "Chrome plugin for setting a homepage for the incognito mode",
+  "icons": {
+    "48": "icon_128.png",
+    "128": "icon_128.png"
+  },
+
+  "browser_action": {
+    "default_icon": "icon_128.png",
+    "default_popup": "popup.html"
+  },
+
+  "author": "Kidon Son",
+  "background": {
+    "scripts": ["listener.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "tabs"
+  ]
+}
