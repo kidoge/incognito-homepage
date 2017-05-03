@@ -1,11 +1,24 @@
 function newTab(callback) {
   if (callback.incognito) {
-    chrome.storage.sync.get("url",function(result) {
-      url = result["url"];
-      chrome.tabs.update(callback.id, {"url": url});
+    chrome.tabs.update(callback.id, {"url": url}, function (){
+      if (chrome.extension.lastError != undefined) {
+        alert(chrome.extension.lastError);
+      }
     });
-
   }
 }
 
-chrome.tabs.onCreated.addListener(newTab);
+
+var url;
+function loadUrl() {
+  chrome.storage.local.get(function(result) {
+    if (chrome.extension.lastError != undefined) {
+      alert(chrome.extension.lastError);
+    }
+    url = result["url"];
+    chrome.tabs.onCreated.addListener(newTab);
+  });
+}
+
+loadUrl();
+chrome.storage.local.onChanged.addListener(loadUrl);

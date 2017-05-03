@@ -5,13 +5,12 @@
 
   "description": "Chrome plugin for setting a homepage for the incognito mode",
   "icons": {
-    "48": "icon_128.png",
+    "48": "icon_48.png",
     "128": "icon_128.png"
   },
 
   "browser_action": {
-    "default_icon": "icon_128.png",
-    "default_popup": "popup.html"
+    "default_icon": "icon_128.png"
   },
 
   "author": "Kidon Son",
