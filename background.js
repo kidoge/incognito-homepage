@@ -20,5 +20,6 @@ function loadUrl() {
   });
 }
 
+
 loadUrl();
 chrome.storage.local.onChanged.addListener(loadUrl);
