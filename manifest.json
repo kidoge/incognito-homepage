@@ -14,13 +14,19 @@
     "default_icon": "images/icon_128.png"
   },
 
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+
   "author": "Kidon Son",
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["js/background.js"],
     "persistent": false
   },
   "permissions": [
     "tabs",
     "storage"
-  ]
+  ],
+  "web_accessible_resources": [ "js/options.js", "js/jquery-3.2.1.min.js", "css/style.css" ]
 }
