@@ -2,7 +2,7 @@ URL_REGEX = "^(?:(?:http|https)\:\/\/)*(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,3}" +
     "(?:[a-zA-Z0-9]*)?\/?(?:[a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*" +
     "[^\.\,\)\(\s]$";
 
-function show_error(error) {
+function showError(error) {
   message = $("#message");
   message.html(error);
   message.removeClass("success");
@@ -16,7 +16,7 @@ function show_success() {
   message.addClass("success");
 }
 
-function restore_options() {
+function restoreOptions() {
   chrome.storage.local.get(function(result) {
     if (chrome.extension.lastError == undefined) {
       $("#url").val(result["url"]);
@@ -24,19 +24,19 @@ function restore_options() {
     } else {
       error = "Settings could not be loaded. ("
           + chrome.extension.lastError + ")";
-      show_error(error);
+      showError(error);
     }
   });
 }
 
-function validate_url(url) {
+function validateUrl(url) {
   re = new RegExp(URL_REGEX);
   return re.test(url);
 }
 
-function save_options() {
-  if (!validate_url($("#url").val())) {
-    show_error("Invalid URL");
+function saveOptions() {
+  if (!validateUrl($("#url").val())) {
+    showError("Invalid URL");
     return;
   }
 
@@ -50,10 +50,10 @@ function save_options() {
     } else {
       error = "Settings could not be saved. ("
           + chrome.extension.lastError + ")";
-      show_error(error);
+      showError(error);
     }
   });
 }
 
-$(document).bind('DOMContentLoaded', restore_options);
-$("#update").bind('click', save_options);
+$(document).bind('DOMContentLoaded', restoreOptions);
+$("#update").bind('click', saveOptions);
