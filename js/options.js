@@ -1,5 +1,6 @@
-URL_REGEX = "/^((http|https)\:\/\/)*([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,3}(:[a-zA-Z"
-    + "0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$/";
+URL_REGEX = "^(?:(?:http|https)\:\/\/)*(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,3}" +
+    "(?:[a-zA-Z0-9]*)?\/?(?:[a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*" +
+    "[^\.\,\)\(\s]$";
 
 function show_error(error) {
   message = $("#message");
@@ -13,7 +14,6 @@ function show_success() {
   message.html("Saved successfully.");
   message.removeClass("error");
   message.addClass("success");
-
 }
 
 function restore_options() {
@@ -28,10 +28,8 @@ function restore_options() {
   });
 }
 
-
 function validate_url(url) {
   re = new RegExp(URL_REGEX);
-  alert(re.exec(url));
   return re.test(url);
 }
 
