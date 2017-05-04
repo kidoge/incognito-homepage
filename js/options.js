@@ -9,7 +9,7 @@ function showError(error) {
   message.addClass("error");
 }
 
-function show_success() {
+function showSuccess() {
   message = $("#message");
   message.html("Saved successfully.");
   message.removeClass("error");
@@ -46,7 +46,7 @@ function saveOptions() {
   };
   chrome.storage.local.set(options, function() {
     if (chrome.extension.lastError == undefined) {
-      show_success();
+      showSuccess();
     } else {
       error = "Settings could not be saved. ("
           + chrome.extension.lastError + ")";
