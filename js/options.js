@@ -17,7 +17,11 @@ function showSuccess() {
 }
 
 function restoreOptions() {
-  chrome.storage.local.get(function(result) {
+  defaults = {
+      "url": "http://www.google.ca",
+      "first_only": false
+  };
+  chrome.storage.local.get(defaults, function(result) {
     if (chrome.extension.lastError == undefined) {
       $("#url").val(result["url"]);
       $("#first_only")[0].checked = result["first_only"];

@@ -24,7 +24,11 @@ function getUrl(func) {
 }
 
 function loadUrl(func) {
-  chrome.storage.local.get(function(result) {
+  defaults = {
+      "url": "http://www.google.ca",
+      "first_only": false
+  };
+  chrome.storage.local.get(defaults, function(result) {
     if (chrome.extension.lastError == undefined) {
       url = result["url"];
       firstOnly = result["first_only"];
