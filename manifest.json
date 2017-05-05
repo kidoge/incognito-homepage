@@ -22,7 +22,7 @@
   },
 
   "background": {
-    "scripts": ["js/background.js"],
+    "scripts": ["js/defaults.js", "js/background.js"],
     "persistent": false
   },
   "permissions": [
@@ -31,6 +31,7 @@
   ],
   "web_accessible_resources": [
       "css/style.css",
+      "js/defaults.js",
       "js/options.js",
       "js/jquery-3.2.1.min.js"
   ]
