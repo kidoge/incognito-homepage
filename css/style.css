@@ -26,3 +26,9 @@
 #message {
   padding-left: 5px;
 }
+
+.about {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
