@@ -39,3 +39,9 @@ chrome.tabs.onCreated.addListener(newTab);
 chrome.storage.onChanged.addListener(function(changes, areaName) {
   loadUrl();
 });
+
+chrome.extension.isAllowedIncognitoAccess(function(allowed) {
+  if (!allowed) {
+    chrome.tabs.create({"url": "guide.html"});
+  }
+});
