@@ -58,3 +58,6 @@ function saveOptions() {
 
 $(document).bind('DOMContentLoaded', restoreOptions);
 $("#update").bind('click', saveOptions);
+$("#guide").bind('click', function() {
+  chrome.tabs.create({"url": "guide.html"});
+});
