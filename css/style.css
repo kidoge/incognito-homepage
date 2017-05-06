@@ -27,8 +27,12 @@
   padding-left: 5px;
 }
 
-.about {
+.footer-links  {
   position: absolute;
   bottom: 5px;
   right: 5px;
+}
+
+.footer-links > a + a {
+  padding-left: 3px;
 }

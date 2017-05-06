@@ -27,7 +27,7 @@ function loadUrl(func) {
   chrome.storage.local.get(DEFAULTS, function(result) {
     if (chrome.extension.lastError == undefined) {
       url = result["url"];
-      firstOnly = result["first_only"];
+      firstOnly = result["firstOnly"];
       if (func != undefined) {
         func(url);
       }
