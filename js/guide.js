@@ -1,6 +1,7 @@
-function openExtensionOptions() {
-  alert("hi");
-  chrome.runtime.openOptionsPage();
-}
+$("#extensions_button").bind("click", function() {
+  chrome.tabs.create({"url": "chrome://extensions"});
+});
 
-$("#extension_button").bind("click", openExtensionOptions);
+$("#options_button").bind("click", function() {
+  chrome.runtime.openOptionsPage();
+});

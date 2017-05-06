@@ -28,12 +28,5 @@
   "permissions": [
     "tabs",
     "storage"
-  ],
-  "web_accessible_resources": [
-      "css/style.css",
-      "js/defaults.js",
-      "js/options.js",
-      "js/jquery-3.2.1.min.js",
-      "guide.html"
   ]
 }
