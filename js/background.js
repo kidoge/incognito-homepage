@@ -36,12 +36,17 @@ function loadUrl(func) {
 }
 
 chrome.tabs.onCreated.addListener(newTab);
+
+// Update URL when change is detected
 chrome.storage.onChanged.addListener(function(changes, areaName) {
   loadUrl();
 });
 
-chrome.extension.isAllowedIncognitoAccess(function(allowed) {
-  if (!allowed) {
-    chrome.tabs.create({"url": "guide.html"});
-  }
+// Show the installation guide when the extension is installed.
+chrome.runtime.onInstalled.addListener(function() {
+  chrome.extension.isAllowedIncognitoAccess(function(allowed) {
+    if (!allowed) {
+      chrome.tabs.create({"url": "guide.html"});
+    }
+  });
 });
