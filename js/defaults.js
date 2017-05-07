@@ -1,4 +1,4 @@
 DEFAULTS = {
-    "url": "https://www.nasa.gov/multimedia/imagegallery/iotd.html",
+    "url": "http://i.imgur.com/E6PpuLl.jpg",
     "firstOnly": false
 };
