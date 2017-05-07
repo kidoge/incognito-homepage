@@ -50,3 +50,9 @@
 .panel ul {
   padding-left: 20px;
 }
+
+/* Guide page */
+
+.panel li + li {
+  padding-top: 15px;
+}
