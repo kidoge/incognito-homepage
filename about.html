@@ -3,14 +3,31 @@
   <head>
     <meta charset="utf-8">
     <title>Incognito Homepage - About</title>
+    <script src="js/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <h1>About</h1>
-    <h2>Author</h2>
-    Kidon Son (<a href="https://github.com/kidoge">GitHub</a>)
-    <h2>Attributions</h2>
-    Built using <a href="http://getbootstrap.com/">Bootstrap</a> and <a href="http://jquery.com/">jQuery</a>
-    <div>Curved arrow on the instructional screen was made by <a href="http://www.flaticon.com/authors/google" title="Google">Google</a></div>
+    <div class="container">
+      <h1>About</h1>
+      <div class="panel panel-info">
+        <div class="panel-heading">Incognito Homepage</div>
+        <div class="panel-body">
+          Version: <span id="version"></span><br>
+          Source code available on <a href="https://github.com/kidoge/incognito-homepage">GitHub</a><br>
+          Created by <a href="https://github.com/kidoge">Kidon Son</a>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">Attributions</div>
+        <div class="panel-body">
+          <ul>
+            <li>Built using <a href="http://getbootstrap.com/">Bootstrap</a> and <a href="http://jquery.com/">jQuery</a></li>
+            <li>Curved arrow icon made by <a href="http://www.flaticon.com/authors/google" title="Google">Google</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="js/about.js"></script>
   </body>
 </html>
