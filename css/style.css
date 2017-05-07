@@ -1,4 +1,4 @@
-.content {
+.options-content {
   width: 600px;
   overflow: hidden;
 }
@@ -11,16 +11,18 @@
   color: #0F0;
 }
 
-.row {
-  margin-bottom: 10px;
+.full-width {
+  width: 100%;
 }
 
-.row > .field {
-  width: 100%;
+.option-row {
+  margin-bottom: 5px;
+  width: 95%;
 }
 
 .button-row {
   margin-top: 10px;
+  width: 95%;
 }
 
 #message {

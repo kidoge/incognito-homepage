@@ -7,20 +7,27 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div class="content">
-      <div class="row">
-        Incognito Homepage URL<br>
-        <input id="url" class="field" type="text">
+    <div class="options-content">
+      <div class="option-row">
+        <label for="url">Incognito Homepage URL</label>
+        <input type="text" id="url" class="full-width">
       </div>
-      <div class="row">
+
+      <div class="option-row">
         <input id="first-only" type="checkbox"> Only open for the first tab
       </div>
+
       <div class="button-row">
-        <button id="update">Save</button>
+        <button type="button" id="update">Save</button>
         <span id="message"></span>
       </div>
     </div>
-    <div class="footer-links"><a id="guide" href="#">Installation Guide</a> <a href="about.html">About</a></div>
+
+    <div class="footer-links">
+      <a id="guide" href="#">Installation Guide</a>
+      <a href="about.html">About</a>
+    </div>
+
     <script src="js/defaults.js"></script>
     <script src="js/options.js"></script>
   </body>
