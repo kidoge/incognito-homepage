@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Incognito Homepage",
-  "version": "0.1",
-  "version_name": "0.1 Initial Release",
+  "version": "0.2",
+  "version_name": "0.2",
   "author": "Kidon Son",
 
   "description": "Chrome plugin for setting a homepage for the incognito mode",
