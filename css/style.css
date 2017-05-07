@@ -1,9 +1,7 @@
-/* Options page */
+/* Save result */
 
-.options-content {
-  width: 600px;
-  overflow: hidden;
-  padding: 10px 15px 10px 15px;
+#message {
+  padding-left: 5px;
 }
 
 .error {
@@ -14,8 +12,16 @@
   color: #0F0;
 }
 
+/* Options body */
+
 .full-width {
   width: 100%;
+}
+
+.options-content {
+  overflow: hidden;
+  padding: 10px 15px 10px 15px;
+  width: 600px;
 }
 
 .option-row {
@@ -27,13 +33,11 @@
   margin-bottom: 0px;
 }
 
-#message {
-  padding-left: 5px;
-}
+/* Footer links */
 
 .footer-links  {
-  position: absolute;
   bottom: 5px;
+  position: absolute;
   right: 5px;
 }
 
@@ -42,6 +46,7 @@
 }
 
 /* About page */
+
 .panel ul {
   padding-left: 20px;
 }
