@@ -1,25 +1,34 @@
 <!doctype html>
-
 <html>
   <head>
-    <title>Incognito Homepage Options</title>
+    <meta charset="utf-8">
+    <title>Incognito Homepage - Options</title>
     <script src="js/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div class="content">
-      <div class="row">
-        Incognito Homepage URL<br>
-        <input id="url" class="field" type="text">
+    <div class="container options-content">
+      <div class="option-row">
+        <label for="url">Incognito Homepage URL</label>
+        <input type="text" id="url" class="full-width">
       </div>
-      <div class="row">
-        <input id="first_only" type="checkbox"> Only open for the first tab
+
+      <div class="option-row">
+        <input id="first-only" type="checkbox"> Only open for the first tab
       </div>
-      <div class="button-row">
-        <div class="left"><button id="update">Save</button></div>
-        <div class="right"><span id="message"></span></div>
+
+      <div class="option-row">
+        <button type="button" id="update" class="btn btn-primary">Save</button>
+        <span id="message"></span>
       </div>
     </div>
+
+    <div class="footer-links">
+      <a id="guide" href="#">Installation Guide</a>
+      <a href="about.html">About</a>
+    </div>
+
     <script src="js/defaults.js"></script>
     <script src="js/options.js"></script>
   </body>
