@@ -1,6 +1,7 @@
 .options-content {
   width: 600px;
   overflow: hidden;
+  padding: 10px 15px 10px 15px;
 }
 
 .error {
@@ -16,13 +17,12 @@
 }
 
 .option-row {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   width: 95%;
 }
 
-.button-row {
-  margin-top: 10px;
-  width: 95%;
+.option-row:last-of-type {
+  margin-bottom: 0px;
 }
 
 #message {
@@ -36,5 +36,5 @@
 }
 
 .footer-links > a + a {
-  padding-left: 3px;
+  padding: 0 8px 0 8px;
 }

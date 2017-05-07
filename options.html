@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>Incognito Homepage - Options</title>
     <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-    <div class="options-content">
+    <div class="container options-content">
       <div class="option-row">
         <label for="url">Incognito Homepage URL</label>
         <input type="text" id="url" class="full-width">
@@ -17,8 +18,8 @@
         <input id="first-only" type="checkbox"> Only open for the first tab
       </div>
 
-      <div class="button-row">
-        <button type="button" id="update">Save</button>
+      <div class="option-row">
+        <button type="button" id="update" class="btn btn-primary">Save</button>
         <span id="message"></span>
       </div>
     </div>
