@@ -1,6 +1,6 @@
 #/bin/bash
 
-function is_pack_target() {
+is_pack_target() {
 	if [[ "$1" =~ xcf$ ]]; then
 		echo "$1 omitted"
 		return 0
@@ -8,7 +8,7 @@ function is_pack_target() {
 	return 1
 }
 
-function main() {
+main() {
 	rm -rf package
 	mkdir package
 	for f in $(git ls-tree -r master --name-only); do
