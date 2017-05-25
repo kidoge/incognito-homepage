@@ -1,21 +1,21 @@
 const NEWTAB_URL = "chrome://newtab/";
+
 var url;
 var firstOnly;
 
 function newTab(callback) {
   if (callback.incognito && callback.url == NEWTAB_URL) {
-    getUrl(function () {
+    getUrl(function (newUrl) {
       if (!firstOnly || callback.index == 0) {
-        chrome.tabs.update(callback.id, {"url": url});
+        chrome.tabs.update(callback.id, {"url": newUrl});
       }
     });
   }
 }
 
-
 function getUrl(func) {
   if (url == undefined) {
-    loadUrl(func);
+    loadSettings(func);
   } else {
     if (func != undefined) {
       func(url);
@@ -23,7 +23,7 @@ function getUrl(func) {
   }
 }
 
-function loadUrl(func) {
+function loadSettings(func) {
   chrome.storage.local.get(DEFAULTS, function(result) {
     if (chrome.extension.lastError == undefined) {
       url = result["url"];
@@ -39,7 +39,7 @@ chrome.tabs.onCreated.addListener(newTab);
 
 // Update URL when change is detected
 chrome.storage.onChanged.addListener(function(changes, areaName) {
-  loadUrl();
+  loadSettings();
 });
 
 // Show the installation guide when the extension is installed.
