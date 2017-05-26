@@ -35,11 +35,21 @@ function validateUrl(url) {
   return re.test(url);
 }
 
+function sanitizeUrl() {
+  urlText = $("#url").val();
+  re = new RegExp("^(http|https)");
+  if (!re.test(urlText)) {
+    $("#url").val("http://" + urlText)
+  }
+}
+
 function saveOptions() {
   if (!validateUrl($("#url").val())) {
     showError("Invalid URL");
     return;
   }
+
+  sanitizeUrl();
 
   options = {
     "url":$("#url").val(),
