@@ -25,20 +25,41 @@ function getUrl(func) {
 
 function loadSettings(func) {
   chrome.storage.local.get(DEFAULTS, function(result) {
-    if (chrome.extension.lastError == undefined) {
+    lastError = chrome.runtime.lastError;
+    if (lastError == undefined) {
       url = result["url"];
       firstOnly = result["firstOnly"];
       if (func != undefined) {
         func(url);
       }
+    } else {
+      console.log(lastError);
+    }
+  });
+}
+
+function syncRemoteSettings() {
+  chrome.storage.sync.get(Object.keys(DEFAULTS), function(result) {
+    lastError = chrome.runtime.lastError;
+    if (lastError == undefined) {
+      chrome.storage.local.set(result, function() {
+        lastError = chrome.runtime.lastError;
+        if (lastError != undefined) {
+          console.log(lastError);
+        }
+      });
+    } else {
+      console.log(lastError);
     }
   });
 }
 
 chrome.tabs.onCreated.addListener(newTab);
 
-// Update URL when change is detected
 chrome.storage.onChanged.addListener(function(changes, areaName) {
+  if (areaName == "sync") {
+    syncRemoteSettings();
+  }
   loadSettings();
 });
 

@@ -19,13 +19,15 @@ function showSuccess() {
 function restoreOptions() {
 
   chrome.storage.local.get(DEFAULTS, function(result) {
-    if (chrome.extension.lastError == undefined) {
+    lastError = chrome.runtime.lastError;
+    if (lastError == undefined) {
       $("#url").val(result["url"]);
       $("#first-only")[0].checked = result["firstOnly"];
     } else {
       error = "Settings could not be loaded. ("
-          + chrome.extension.lastError + ")";
+          + lastError + ")";
       showError(error);
+      console.log(lastError);
     }
   });
 }
@@ -56,12 +58,20 @@ function saveOptions() {
     "firstOnly":$("#first-only")[0].checked
   };
   chrome.storage.local.set(options, function() {
-    if (chrome.extension.lastError == undefined) {
+    lastError = chrome.runtime.lastError;
+    if (lastError == undefined) {
       showSuccess();
     } else {
       error = "Settings could not be saved. ("
-          + chrome.extension.lastError + ")";
+          + lastError + ")";
       showError(error);
+      console.log(lastError);
+    }
+  });
+  chrome.storage.sync.set(options, function() {
+    lastError = chrome.runtime.lastError;
+    if (lastError != undefined) {
+      console.log(lastError);
     }
   });
 }
