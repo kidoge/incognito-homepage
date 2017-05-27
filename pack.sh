@@ -23,14 +23,12 @@ current_branch() {
 
 check_repository() {
 	if [[ "$(current_branch)" != "master" ]]; then
-		echo "ERROR: Not on master branch"
-		exit 1
+		echo "WARNING: Not on master branch"
 	fi
 
 	git diff-files --quiet
 	if [[ $1 -ne "0" ]]; then
-		echo "ERROR: Repository is dirty"
-		exit 1
+		echo "WARNING: Repository is dirty"
 	fi
 }
 
