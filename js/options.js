@@ -52,11 +52,11 @@ function saveOptions() {
   }
 
   sanitizeUrl();
-
   options = {
     "url":$("#url").val(),
     "firstOnly":$("#first-only")[0].checked
   };
+  chrome.runtime.sendMessage({message:"setSettings", data:options});
   chrome.storage.local.set(options, function() {
     lastError = chrome.runtime.lastError;
     if (lastError == undefined) {

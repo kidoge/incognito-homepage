@@ -1,3 +1,5 @@
+"use strict";
+
 const NEWTAB_URL = "chrome://newtab/";
 
 var url;
@@ -53,6 +55,29 @@ function syncRemoteSettings() {
     }
   });
 }
+
+function handleSetSettings(settings, sendResponse) {
+  alert("setSettings");
+}
+
+function handleGetSettings(settings, sendResponse) {
+  alert("getSettings");
+}
+
+var handlers = {
+  "setSettings": handleSetSettings,
+  "getSettings": handleGetSettings
+};
+
+function handleMessage(request, sender, sendResponse) {
+  alert(JSON.stringify(request) + " " + JSON.stringify(sender));
+  console.assert(("message" in request) && ("data" in request));
+  var func = handlers[request.message];
+  console.assert(typeof func === "function");
+  func(request.data, sendResponse);
+}
+
+chrome.runtime.onMessage.addListener(handleMessage);
 
 chrome.tabs.onCreated.addListener(newTab);
 
