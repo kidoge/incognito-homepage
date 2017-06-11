@@ -1,7 +1,5 @@
 "use strict";
 
-const NEWTAB_URL = "chrome://newtab/";
-
 var url;
 var firstOnly;
 
@@ -26,8 +24,8 @@ function getUrl(func) {
 }
 
 function loadSettings(func) {
-  chrome.storage.local.get(DEFAULTS, function(result) {
-    lastError = chrome.runtime.lastError;
+  chrome.storage.local.get(DEFAULT_SETTINGS, function(result) {
+    var lastError = chrome.runtime.lastError;
     if (lastError == undefined) {
       url = result["url"];
       firstOnly = result["firstOnly"];
@@ -41,8 +39,8 @@ function loadSettings(func) {
 }
 
 function syncRemoteSettings() {
-  chrome.storage.sync.get(Object.keys(DEFAULTS), function(result) {
-    lastError = chrome.runtime.lastError;
+  chrome.storage.sync.get(Object.keys(DEFAULT_SETTINGS), function(result) {
+    var lastError = chrome.runtime.lastError;
     if (lastError == undefined) {
       chrome.storage.local.set(result, function() {
         lastError = chrome.runtime.lastError;
