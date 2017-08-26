@@ -15,17 +15,9 @@ function showSuccess() {
 }
 
 function restoreOptions() {
-  chrome.storage.local.get(DEFAULT_SETTINGS, function(result) {
-    var lastError = chrome.runtime.lastError;
-    if (lastError == undefined) {
-      $("#url").val(result["url"]);
-      $("#first-only")[0].checked = result["firstOnly"];
-    } else {
-      var error = "Settings could not be loaded. ("
-          + lastError + ")";
-      showError(error);
-      console.log(lastError);
-    }
+  getOptions(function(options) {
+    $("#url").val(options.url);
+    $("#first-only")[0].checked = options.firstOnly;
   });
 }
 
@@ -49,27 +41,11 @@ function saveOptions() {
   }
 
   sanitizeUrl();
-  var options = {
-    "url":$("#url").val(),
-    "firstOnly":$("#first-only")[0].checked
-  };
-  chrome.runtime.sendMessage({message:"setSettings", data:options});
-  chrome.storage.local.set(options, function() {
-    var lastError = chrome.runtime.lastError;
-    if (lastError == undefined) {
-      showSuccess();
-    } else {
-      var error = "Settings could not be saved. ("
-          + lastError + ")";
-      showError(error);
-      console.log(lastError);
-    }
-  });
-  chrome.storage.sync.set(options, function() {
-    var lastError = chrome.runtime.lastError;
-    if (lastError != undefined) {
-      console.log(lastError);
-    }
+
+  getOptions(function(options) {
+    options.url = $("#url").val();
+    options.firstOnly = $("#first-only")[0].checked;
+    showSuccess();
   });
 }
 
