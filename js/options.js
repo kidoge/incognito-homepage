@@ -30,14 +30,12 @@ class Options {
     store.get(function(result) {
       let lastError = chrome.runtime.lastError;
       if (lastError == undefined) {
-        console.log(JSON.stringify(result));
         if (result.hasOwnProperty("url")) {
           obj.url = result["url"];
         }
         if (result.hasOwnProperty("firstOnly")) {
           obj.firstOnly = result["firstOnly"];
         }
-        console.log(JSON.stringify(obj));
         if (func != undefined) {
           func();
         }
