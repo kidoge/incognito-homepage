@@ -1,83 +1,76 @@
-URL_REGEX = "^(?:(?:http|https)\:\/\/)*(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,3}" +
-    "(?:[a-zA-Z0-9]*)?\/?(?:[a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*" +
-    "[^\.\,\)\(\s]$";
+"use strict";
 
-function showError(error) {
-  message = $("#message");
-  message.html(error);
-  message.removeClass("success");
-  message.addClass("error");
-}
+class Options {
+  constructor() {
+    this.url = DEFAULT_URL;
+    this.firstOnly = DEFAULT_FIRST_TAB_ONLY;
 
-function showSuccess() {
-  message = $("#message");
-  message.html("Saved successfully.");
-  message.removeClass("error");
-  message.addClass("success");
-}
+    let obj = this;
+    this.loadLocal(function() {
+      obj.loadRemote()
+    });
 
-function restoreOptions() {
+    chrome.storage.onChanged.addListener(function(changes, areaName) {
+      if (areaName == "sync") {
+        obj.loadRemote();
+      }
+    });
+  } 
 
-  chrome.storage.local.get(DEFAULTS, function(result) {
-    lastError = chrome.runtime.lastError;
-    if (lastError == undefined) {
-      $("#url").val(result["url"]);
-      $("#first-only")[0].checked = result["firstOnly"];
-    } else {
-      error = "Settings could not be loaded. ("
-          + lastError + ")";
-      showError(error);
-      console.log(lastError);
-    }
-  });
-}
+  loadLocal(func) {
+    this.loadFromStorage(chrome.storage.local, func);
+  }
 
-function validateUrl(url) {
-  re = new RegExp(URL_REGEX);
-  return re.test(url);
-}
+  loadRemote(func) {
+    this.loadFromStorage(chrome.storage.sync, func);
+  }
 
-function sanitizeUrl() {
-  urlText = $("#url").val();
-  re = new RegExp("^(http|https)");
-  if (!re.test(urlText)) {
-    $("#url").val("http://" + urlText)
+  loadFromStorage(store, func) {
+    let obj = this;
+    store.get(function(result) {
+      let lastError = chrome.runtime.lastError;
+      if (lastError == undefined) {
+        console.log(JSON.stringify(result));
+        if (result.hasOwnProperty("url")) {
+          obj.url = result["url"];
+        }
+        if (result.hasOwnProperty("firstOnly")) {
+          obj.firstOnly = result["firstOnly"];
+        }
+        console.log(JSON.stringify(obj));
+        if (func != undefined) {
+          func();
+        }
+      } else {
+        console.log(lastError);
+      }
+    });
+  }
+
+  save(func) {
+    let obj = this;
+    this.saveLocal(function() {
+      obj.saveRemote(func);
+    });
+  }
+
+  saveLocal(func) {
+    this.saveToStorage(chrome.storage.local, func);
+  }
+
+  saveRemote(func) {
+    this.saveToStorage(chrome.storage.sync, func);
+  }
+
+  saveToStorage(store, func) {
+    store.set(this, function() {
+      let lastError = chrome.runtime.lastError;
+      if (lastError == undefined) {
+        if (func != undefined) {
+          func();
+        }
+      }
+    });
   }
 }
 
-function saveOptions() {
-  if (!validateUrl($("#url").val())) {
-    showError("Invalid URL");
-    return;
-  }
-
-  sanitizeUrl();
-
-  options = {
-    "url":$("#url").val(),
-    "firstOnly":$("#first-only")[0].checked
-  };
-  chrome.storage.local.set(options, function() {
-    lastError = chrome.runtime.lastError;
-    if (lastError == undefined) {
-      showSuccess();
-    } else {
-      error = "Settings could not be saved. ("
-          + lastError + ")";
-      showError(error);
-      console.log(lastError);
-    }
-  });
-  chrome.storage.sync.set(options, function() {
-    lastError = chrome.runtime.lastError;
-    if (lastError != undefined) {
-      console.log(lastError);
-    }
-  });
-}
-
-$(document).bind('DOMContentLoaded', restoreOptions);
-$("#update").bind('click', saveOptions);
-$("#guide").bind('click', function() {
-  chrome.tabs.create({"url": "guide.html"});
-});

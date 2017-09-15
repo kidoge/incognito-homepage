@@ -1,15 +1,12 @@
-const NEWTAB_URL = "chrome://newtab/";
+"use strict";
 
-var url;
-var firstOnly;
+var options = new Options();
 
 function newTab(callback) {
   if (callback.incognito && callback.url == NEWTAB_URL) {
-    getUrl(function (newUrl) {
-      if (!firstOnly || callback.index == 0) {
-        chrome.tabs.update(callback.id, {"url": newUrl});
-      }
-    });
+    if (!options.firstOnly || callback.index == 0) {
+      chrome.tabs.update(callback.id, { "url": options.url });
+    }
   }
 }
 
@@ -23,45 +20,7 @@ function getUrl(func) {
   }
 }
 
-function loadSettings(func) {
-  chrome.storage.local.get(DEFAULTS, function(result) {
-    lastError = chrome.runtime.lastError;
-    if (lastError == undefined) {
-      url = result["url"];
-      firstOnly = result["firstOnly"];
-      if (func != undefined) {
-        func(url);
-      }
-    } else {
-      console.log(lastError);
-    }
-  });
-}
-
-function syncRemoteSettings() {
-  chrome.storage.sync.get(Object.keys(DEFAULTS), function(result) {
-    lastError = chrome.runtime.lastError;
-    if (lastError == undefined) {
-      chrome.storage.local.set(result, function() {
-        lastError = chrome.runtime.lastError;
-        if (lastError != undefined) {
-          console.log(lastError);
-        }
-      });
-    } else {
-      console.log(lastError);
-    }
-  });
-}
-
 chrome.tabs.onCreated.addListener(newTab);
-
-chrome.storage.onChanged.addListener(function(changes, areaName) {
-  if (areaName == "sync") {
-    syncRemoteSettings();
-  }
-  loadSettings();
-});
 
 // Show the installation guide when the extension is installed.
 chrome.runtime.onInstalled.addListener(function() {

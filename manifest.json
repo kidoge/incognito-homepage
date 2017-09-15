@@ -17,12 +17,12 @@
   },
 
   "options_ui": {
-    "page": "options.html",
+    "page": "options_page.html",
     "chrome_style": false
   },
 
   "background": {
-    "scripts": ["js/defaults.js", "js/background.js"],
+    "scripts": ["js/global.js", "js/options.js", "js/background.js"],
     "persistent": false
   },
   "permissions": [
