@@ -1,6 +1,6 @@
 "use strict";
 
-let options = new Options();
+var options = new Options();
 
 function newTab(callback) {
   if (callback.incognito && callback.url == NEWTAB_URL) {
@@ -19,23 +19,6 @@ function getUrl(func) {
     }
   }
 }
-
-function handleGetSettings(settings, sendResponse) {
-  sendResponse(options)
-}
-
-let handlers = {
-  "getSettings": handleGetSettings
-};
-
-function handleMessage(request, sender, sendResponse) {
-  console.assert("message" in request);
-  let func = handlers[request.message];
-  console.assert(typeof func === "function");
-  func(request.data, sendResponse);
-}
-
-chrome.runtime.onMessage.addListener(handleMessage);
 
 chrome.tabs.onCreated.addListener(newTab);
 

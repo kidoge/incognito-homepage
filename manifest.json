@@ -22,7 +22,7 @@
   },
 
   "background": {
-    "scripts": ["js/options.js", "js/global.js", "js/background.js"],
+    "scripts": ["js/global.js", "js/options.js", "js/background.js"],
     "persistent": false
   },
   "permissions": [

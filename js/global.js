@@ -9,6 +9,6 @@ const URL_REGEX = "^(?:(?:http|https)\:\/\/)*(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,3}"
     "(?:[a-zA-Z0-9]*)?\/?(?:[a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*" +
     "[^\.\,\)\(\s]$";
 
-function getOptions(func) {
-  chrome.runtime.sendMessage({"message": "getSettings"}, func);
+function getOptions() {
+  return chrome.extension.getBackgroundPage().options;
 }

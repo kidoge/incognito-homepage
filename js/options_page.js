@@ -15,10 +15,9 @@ function showSuccess() {
 }
 
 function restoreOptions() {
-  getOptions(function(options) {
-    $("#url").val(options.url);
-    $("#first-only")[0].checked = options.firstOnly;
-  });
+  let options = getOptions();
+  $("#url").val(options.url);
+  $("#first-only")[0].checked = options.firstOnly;
 }
 
 function validateUrl(url) {
@@ -42,12 +41,11 @@ function saveOptions() {
 
   sanitizeUrl();
 
-  getOptions(function(options) {
-    options.url = $("#url").val();
-    options.firstOnly = $("#first-only")[0].checked;
-    options.save();
-    showSuccess();
-  });
+  let options = getOptions();
+  options.url = $("#url").val();
+  options.firstOnly = $("#first-only")[0].checked;
+  options.save();
+  showSuccess();
 }
 
 $(document).bind('DOMContentLoaded', restoreOptions);
