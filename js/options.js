@@ -1,56 +1,76 @@
 "use strict";
 
-function showError(error) {
-  var message = $("#message");
-  message.html(error);
-  message.removeClass("success");
-  message.addClass("error");
-}
+class Options {
+  constructor() {
+    this.url = DEFAULT_URL;
+    this.firstOnly = DEFAULT_FIRST_TAB_ONLY;
 
-function showSuccess() {
-  var message = $("#message");
-  message.html("Saved successfully.");
-  message.removeClass("error");
-  message.addClass("success");
-}
+    let obj = this;
+    this.loadLocal(function() {
+      obj.loadRemote()
+    });
 
-function restoreOptions() {
-  getOptions(function(options) {
-    $("#url").val(options.url);
-    $("#first-only")[0].checked = options.firstOnly;
-  });
-}
+    chrome.storage.onChanged.addListener(function(changes, areaName) {
+      if (areaName == "sync") {
+        obj.loadRemote();
+      }
+    });
+  } 
 
-function validateUrl(url) {
-  var re = new RegExp(URL_REGEX);
-  return re.test(url);
-}
+  loadLocal(func) {
+    this.loadFromStorage(chrome.storage.local, func);
+  }
 
-function sanitizeUrl() {
-  var urlText = $("#url").val();
-  var re = new RegExp("^(http|https)");
-  if (!re.test(urlText)) {
-    $("#url").val("http://" + urlText)
+  loadRemote(func) {
+    this.loadFromStorage(chrome.storage.sync, func);
+  }
+
+  loadFromStorage(store, func) {
+    let obj = this;
+    store.get(function(result) {
+      let lastError = chrome.runtime.lastError;
+      if (lastError == undefined) {
+
+        if (result.hasOwnProperty("url")) {
+          obj.url = result["url"];
+        }
+        if (result.hasOwnProperty("firstOnly")) {
+          obj.firstOnly = result["firstOnly"];
+        }
+        if (func != undefined) {
+          func();
+        }
+      } else {
+        console.log(lastError);
+      }
+    });
+  }
+
+  save(func) {
+    let obj = this;
+    this.saveLocal(function() {
+      obj.saveRemote(func);
+    });
+  }
+
+  saveLocal(func) {
+    this.saveToStorage(chrome.storage.local, func);
+  }
+
+  saveRemote(func) {
+    this.saveToStorage(chrome.storage.sync, func);
+  }
+
+  saveToStorage(store, func) {
+    let obj = this;
+    store.set(this, function() {
+      let lastError = chrome.runtime.lastError;
+      if (lastError == undefined) {
+        if (func != undefined) {
+          func();
+        }
+      }
+    });
   }
 }
 
-function saveOptions() {
-  if (!validateUrl($("#url").val())) {
-    showError("Invalid URL");
-    return;
-  }
-
-  sanitizeUrl();
-
-  getOptions(function(options) {
-    options.url = $("#url").val();
-    options.firstOnly = $("#first-only")[0].checked;
-    showSuccess();
-  });
-}
-
-$(document).bind('DOMContentLoaded', restoreOptions);
-$("#update").bind('click', saveOptions);
-$("#guide").bind('click', function() {
-  chrome.tabs.create({"url": "guide.html"});
-});
