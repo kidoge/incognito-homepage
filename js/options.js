@@ -4,17 +4,22 @@ class Options {
   constructor() {
     this.url = DEFAULT_URL;
     this.firstOnly = DEFAULT_FIRST_TAB_ONLY;
+    this.autoSync = false;
 
     let obj = this;
     this.loadLocal(function() {
-      obj.loadRemote()
-    });
-
-    chrome.storage.onChanged.addListener(function(changes, areaName) {
-      if (areaName == "sync") {
+      if (obj.autoSync) {
         obj.loadRemote();
       }
     });
+    
+    if (this.autoSync) {
+      chrome.storage.onChanged.addListener(function(changes, areaName) {
+        if (areaName == "sync") {
+          obj.loadRemote();
+        }
+      });
+    }
   } 
 
   loadLocal(func) {
@@ -48,7 +53,9 @@ class Options {
   save(func) {
     let obj = this;
     this.saveLocal(function() {
-      obj.saveRemote(func);
+      if (obj.autoSync) {
+        obj.saveRemote(func);
+      }
     });
   }
 
