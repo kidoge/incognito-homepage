@@ -15,9 +15,10 @@ function showSuccess() {
 }
 
 function restoreOptions() {
-  let options = getOptions();
-  $("#url").val(options.url);
-  $("#first-only")[0].checked = options.firstOnly;
+  getOptions(function(options) {
+    $("#url").val(options.url);
+    $("#first-only")[0].checked = options.firstOnly;
+  });
 }
 
 function validateUrl(url) {
@@ -41,11 +42,12 @@ function saveOptions() {
 
   sanitizeUrl();
 
-  let options = getOptions();
-  options.url = $("#url").val();
-  options.firstOnly = $("#first-only")[0].checked;
-  options.save();
-  showSuccess();
+  getOptions(function(options) {
+    options.url = $("#url").val();
+    options.firstOnly = $("#first-only")[0].checked;
+    options.save();
+    showSuccess();
+  });
 }
 
 $(document).bind('DOMContentLoaded', restoreOptions);

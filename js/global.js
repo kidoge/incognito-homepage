@@ -9,6 +9,8 @@ const URL_REGEX = "^(?:(?:http|https)\:\/\/)*(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,3}"
     "(?:[a-zA-Z0-9]*)?\/?(?:[a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*" +
     "[^\.\,\)\(\s]$";
 
-function getOptions() {
-  return chrome.extension.getBackgroundPage().options;
+function getOptions(func) {
+  return chrome.runtime.getBackgroundPage(function(backgroundPage) {
+    func(backgroundPage.options); 
+  });
 }
